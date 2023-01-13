@@ -8,7 +8,9 @@ export default function Input({ onAdd }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // uuid는 함수임 기억
-    onAdd({ id: uuidv4(), text, status: "active" });
+    if (text.trim().length > 0) {
+      onAdd({ id: uuidv4(), text, status: "active" });
+    }
     setText("");
   };
 

@@ -4,11 +4,14 @@ import Header from "./components/Header";
 import Input from "./components/Input";
 import Todo from "./components/Todo";
 
-export default function Main({ initialTodo }) {
+export default function Main({}) {
   const [todoItem, setTodoItem] = useState([
     { id: "123", text: "오늘", status: "active" },
-    { id: "456asdasdf", text: "오늘asdf", status: "active" },
+    { id: "asdf", text: "내일", status: "active" },
   ]);
+
+  const filters = ["all", "active", "completed"];
+  const [filter, setFilter] = useState(filters[0]);
 
   const handleAdd = (todo) => {
     // 새로운 todo를 가져오면 추가될 수 있게
@@ -28,25 +31,40 @@ export default function Main({ initialTodo }) {
     );
   };
 
-  return (
-    <div className="bg-slate-600 w-screen h-screen flex justify-center items-center">
-      <div className="w-[512px] h-[512px] bg-white rounded-2xl px-8 flex flex-col justify-between">
-        <Header />
-        <div className="h-[350px] border-b- border-b-2 border-b-yellow-500 px-2 py-2">
-          <ul>
-            {todoItem.map((todo) => (
-              <Todo
-                key={todo.id}
-                todo={todo}
-                onDelete={handleDelete}
-                onUpdate={handleUpdate}
-              />
-            ))}
-          </ul>
-        </div>
+  const filtered = getFilteredItems(todoItem, filter);
 
-        <Input onAdd={handleAdd} />
+  return (
+    <>
+      <Header // 필터들
+        todos={todoItem}
+        filters={filters}
+        // 선택된 필터
+        filter={filter}
+        // 필터를 전달 받으면 바로 설정될 수 있게
+        onFilterChange={setFilter}
+      />
+      <div className="h-[350px] border-b- border-b-2 border-b-yellow-500 px-2 py-2">
+        <ul>
+          {/* 필터링 된 item을 전달 */}
+          {filtered.map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              onDelete={handleDelete}
+              onUpdate={handleUpdate}
+            />
+          ))}
+        </ul>
       </div>
-    </div>
+
+      <Input onAdd={handleAdd} />
+    </>
   );
+}
+
+function getFilteredItems(todoItem, filter) {
+  if (filter === "all") {
+    return todoItem;
+  }
+  return todoItem.filter((todo) => todo.status === filter);
 }
