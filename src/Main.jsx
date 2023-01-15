@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Input from "./components/Input";
 import Todo from "./components/Todo";
 
-export default function Main({}) {
+export default function Main() {
   const [todoItem, setTodoItem] = useState([
     { id: "123", text: "오늘", status: "active" },
     { id: "asdf", text: "내일", status: "active" },
@@ -43,8 +43,8 @@ export default function Main({}) {
         // 필터를 전달 받으면 바로 설정될 수 있게
         onFilterChange={setFilter}
       />
-      <div className="h-[350px] border-b- border-b-2 border-b-yellow-500 px-2 py-2">
-        <ul>
+      <section className="h-full flex flex-col min-h-0 px-2 py-2">
+        <ul className="flex-auto overflow-y-auto">
           {/* 필터링 된 item을 전달 */}
           {filtered.map((todo) => (
             <Todo
@@ -55,9 +55,8 @@ export default function Main({}) {
             />
           ))}
         </ul>
-      </div>
-
-      <Input onAdd={handleAdd} />
+        <Input onAdd={handleAdd} />
+      </section>
     </>
   );
 }

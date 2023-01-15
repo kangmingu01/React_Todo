@@ -29,7 +29,7 @@ export default function Input({ onAdd }) {
         id="text"
         value={text}
         onChange={handleChange}
-        className="pl-2 py-1 rounded-l-xl outline-yellow-500"
+        className=" pl-2 py-1 rounded-l-xl outline-yellow-500"
         placeholder="Add Todo"
       />
       <button className="px-4 py-1 bg-yellow-500 rounded-r-xl hover:text-white ease-in duration-300">

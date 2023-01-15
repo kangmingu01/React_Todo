@@ -16,21 +16,18 @@ export default function Todo({ todo, onDelete, onUpdate }) {
   };
 
   return (
-    <li key={id} className="flex justify-between">
-      <div>
-        <input
-          type="checkbox"
-          id={id}
-          className="mr-2"
-          // status가 completed이면 체크
-          checked={status === "completed"}
-          onChange={handleUpdate}
-        />
-        <label htmlFor={id} className="text-lg cursor-pointer">
-          {text}
-        </label>
-      </div>
-
+    <li key={id} className="flex justify-between items-center">
+      <input
+        type="checkbox"
+        id={id}
+        className="w-5 h-5 mr-2"
+        // status가 completed이면 체크
+        checked={status === "completed"}
+        onChange={handleUpdate}
+      />
+      <label htmlFor={id} className="flex-1 ml-2 text-lg cursor-pointer">
+        {text}
+      </label>
       <button onClick={handleDelete}>
         <BsFillTrashFill
           size={18}
