@@ -1,16 +1,24 @@
 import React from "react";
-import { BsSunFill } from "react-icons/bs";
+import { BsSunFill, BsMoonFill } from "react-icons/bs";
+import { useDarkMode } from "../context/DarkModeContext";
 
 export default function Header({ todos, filters, filter, onFilterChange }) {
   const date = new Date();
+  const { darkMode, toggleDarkMode } = useDarkMode();
   return (
     <div>
-      <h1 className="text-lg pt-6">{date.toLocaleDateString("ko-kr")}</h1>
+      <h1 className="text-lg pt-6 text-black dark:text-white">
+        {date.toLocaleDateString("ko-kr")}
+      </h1>
       <div className="flex justify-between mt-2 pb-2 border-b-2 border-b-yellow-400">
-        <BsSunFill
+        <button
           size={25}
-          className="cursor-pointer hover:text-yellow-400 ease-in duration-300"
-        />
+          className="cursor-pointer  hover:text-yellow-400 ease-in duration-300"
+          onClick={toggleDarkMode}
+        >
+          {darkMode ? <BsSunFill /> : <BsMoonFill />}
+        </button>
+
         <ul className="flex">
           {filters.map((value, index) => (
             <li key={index}>
@@ -18,8 +26,8 @@ export default function Header({ todos, filters, filter, onFilterChange }) {
                 onClick={() => onFilterChange(value)}
                 className={
                   filter === value
-                    ? `px-2 cursor-pointer underline underline-offset-4 decoration-yellow-400 decoration-4`
-                    : `px-2 cursor-pointer `
+                    ? `px-2 cursor-pointer  dark:text-white underline underline-offset-4 decoration-yellow-400 decoration-4`
+                    : `px-2 cursor-pointer dark:text-white`
                 }
               >
                 {value}

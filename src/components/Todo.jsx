@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 export default function Todo({ todo, onDelete, onUpdate }) {
   const { id, text, status } = todo;
@@ -25,7 +25,10 @@ export default function Todo({ todo, onDelete, onUpdate }) {
         checked={status === "completed"}
         onChange={handleUpdate}
       />
-      <label htmlFor={id} className="flex-1 ml-2 text-lg cursor-pointer">
+      <label
+        htmlFor={id}
+        className="flex-1 ml-2 text-lg cursor-pointer dark:text-white"
+      >
         {text}
       </label>
       <button onClick={handleDelete}>

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 
 import Input from "./components/Input";
 import Todo from "./components/Todo";
 
 export default function Main() {
-  const [todoItem, setTodoItem] = useState([
-    { id: "123", text: "오늘", status: "active" },
-    { id: "asdf", text: "내일", status: "active" },
-  ]);
+  const [todoItem, setTodoItem] = useState(() => readLocalStorage());
 
   const filters = ["all", "active", "completed"];
   const [filter, setFilter] = useState(filters[0]);
@@ -30,6 +27,12 @@ export default function Main() {
       todoItem.map((todo) => (todo.id === update.id ? update : todo))
     );
   };
+
+  // 로컬스토리지에 저장시키자
+  // 아이템이 하나씩 추가되면
+  useEffect(() => {
+    localStorage.setItem("todoItem", JSON.stringify(todoItem));
+  }, [todoItem]);
 
   const filtered = getFilteredItems(todoItem, filter);
 
@@ -59,6 +62,11 @@ export default function Main() {
       </section>
     </>
   );
+}
+
+function readLocalStorage() {
+  const todoItem = localStorage.getItem("todoItem");
+  return todoItem ? JSON.parse(todoItem) : [];
 }
 
 function getFilteredItems(todoItem, filter) {
