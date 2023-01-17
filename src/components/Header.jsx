@@ -16,7 +16,11 @@ export default function Header({ todos, filters, filter, onFilterChange }) {
             <li key={index}>
               <button
                 onClick={() => onFilterChange(value)}
-                className="px-2 cursor-pointer hover:underline underline-offset-4 decoration-yellow-400 decoration-4"
+                className={
+                  filter === value
+                    ? `px-2 cursor-pointer underline underline-offset-4 decoration-yellow-400 decoration-4`
+                    : `px-2 cursor-pointer `
+                }
               >
                 {value}
               </button>
